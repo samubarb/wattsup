@@ -77,26 +77,26 @@ class WattsUp(object):
     fields[1] = self.name
     fields[2] = datetime.datetime.now()
     fields[3] = str(int(fields[3]) / 10.0)
-    fields[4] = str(int(fields[4]) / 10.0)
-    fields[5] = str(int(fields[5]) / 1000.0)
-    fields[6] = str(int(fields[6]) / 10.0)
-    fields[7] = str(int(fields[7]) / 1000.0)
-    fields[8] = str(int(fields[8]) / 10.0)
-    fields[9] = str(int(fields[9]) / 1000.0)
-    fields[10] = str(int(fields[10]) / 10.0)
-    fields[11] = str(int(fields[11]) / 10.0)
-    fields[12] = str(int(fields[12]) / 1000.0)
-    fields[13] = str(int(fields[13]) / 10.0)
-    fields[14] = str(int(fields[14]) / 10.0)
-    fields[15] = str(int(fields[15]) / 1000.0)
-    # fields[16] = fields[16]
-    # fields[17] = fields[17]
-    # fields[18] = fields[18]
-    fields[19] = str(int(fields[19]) / 10.0)
-    if len(fields) is 21:
-      fields[20] = ''
-    elif len(fields) is 22:
-      fields[21] = ''
+    # fields[4] = str(int(fields[4]) / 10.0)
+    # fields[5] = str(int(fields[5]) / 1000.0)
+    # fields[6] = str(int(fields[6]) / 10.0)
+    # fields[7] = str(int(fields[7]) / 1000.0)
+    # fields[8] = str(int(fields[8]) / 10.0)
+    # fields[9] = str(int(fields[9]) / 1000.0)
+    # fields[10] = str(int(fields[10]) / 10.0)
+    # fields[11] = str(int(fields[11]) / 10.0)
+    # fields[12] = str(int(fields[12]) / 1000.0)
+    # fields[13] = str(int(fields[13]) / 10.0)
+    # fields[14] = str(int(fields[14]) / 10.0)
+    # fields[15] = str(int(fields[15]) / 1000.0)
+    # # fields[16] = fields[16]
+    # # fields[17] = fields[17]
+    # # fields[18] = fields[18]
+    # fields[19] = str(int(fields[19]) / 10.0)
+    # if len(fields) is 21:
+    #   fields[20] = ''
+    # elif len(fields) is 22:
+    #   fields[21] = ''
     return fields[2:4]
 
   def log(self, rawOutput, logfilePrefix):

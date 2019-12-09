@@ -108,7 +108,7 @@ class WattsUp(object):
     try:
       self.serialPort.write('#L,W,3,E,,%d;' % self.interval)
       elapsedTime = 0
-      logfile = open(logfilePrefix + '-' + self.name + '.csv', 'w')
+      logfile = open(logfilePrefix + '.csv', 'w')
       # logfile.write('Meter, Time, W\n')
       logfile.write('Time, W\n')
       # sys.stdout.write('Meter, Time, W\n')
@@ -167,7 +167,7 @@ class WattsUp(object):
     #fetch logged data
     self.serialPort.write('#D,R,0;')
 
-    logfile = open(logfilePrefix + '-' + self.name + '.csv', 'w')
+    logfile = open(logfilePrefix + '.csv', 'w')
     count = 0
     while count == 0:
       fields = self.serialPort.readline().split(',')

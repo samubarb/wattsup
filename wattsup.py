@@ -67,6 +67,12 @@ class WattsUp(object):
   def getFormattedLine(self):
     """Return the read values in appropriate formats as a list"""
     fields = self.getRawLine()
+    #clean
+    for i, f in enumerate(fields):
+        try:
+            fields[i] = int(f)
+        except:
+            fields[i] = int(0)
     #format
     fields[1] = self.name
     fields[2] = datetime.datetime.now()
@@ -88,10 +94,10 @@ class WattsUp(object):
     # fields[18] = fields[18]
     fields[19] = str(int(fields[19]) / 10.0)
     if len(fields) is 21:
-      fields[20] = str(int(fields[20].replace(';\r\n', '')))
+      fields[20] = ''
     elif len(fields) is 22:
-      fields[21] = str(int(fields[21].replace(';\r\n', '')))
-    return fields[1:]
+      fields[21] = ''
+    return fields[2:4]
 
   def log(self, rawOutput, logfilePrefix):
     """Prints the read valuse on stdout and saves as CSV files
@@ -103,8 +109,10 @@ class WattsUp(object):
       self.serialPort.write('#L,W,3,E,,%d;' % self.interval)
       elapsedTime = 0
       logfile = open(logfilePrefix + '-' + self.name + '.csv', 'w')
-      logfile.write('Meter, Time, W, V, A, WH, Cost, WH/Mo, Cost/Mo, Wmax, Vmax, Amax, Wmin, Vmin, Amin, PF, DC, PC, HZ, VA\n')
-      sys.stdout.write('Meter, Time, W, V, A, WH, Cost, WH/Mo, Cost/Mo, Wmax, Vmax, Amax, Wmin, Vmin, Amin, PF, DC, PC, HZ, VA\n')
+      # logfile.write('Meter, Time, W\n')
+      logfile.write('Time, W\n')
+      # sys.stdout.write('Meter, Time, W\n')
+      sys.stdout.write('Time, W\n')
       while True:
         if elapsedTime > self.duration:
           break
@@ -114,14 +122,10 @@ class WattsUp(object):
         else:
           fields = self.getFormattedLine()
 
-        if len(fields) < 20:
-          continue
-
+        stringBuild = [str(x) for x in fields]
+        print(stringBuild)
         for field in fields:
-          sys.stdout.write(str(field) + ', ')
           logfile.write('%s, ' % field)
-        sys.stdout.write('\n')
-        sys.stdout.flush()
         logfile.write('\n')
 
         elapsedTime += self.interval
@@ -314,7 +318,7 @@ def main(args, parser):
     for logger in loggers:
       logger.join()
   except KeyboardInterrupt:
-      print 'Quitting...(main)'
+      print '\nQuitting...(main)'
 
 
 if __name__ == '__main__':

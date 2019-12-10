@@ -122,7 +122,7 @@ class WattsUp(object):
         except:
           pass
         self.serialPort.close()
-        print '\nKeyboardInterrupt in logger, saving log file for: ', logfile.name
+        print '\nSIGINT in logger, saving log file for: ', logfile.name
 
       signal.signal(signal.SIGINT, signal_handler)
 
@@ -148,8 +148,15 @@ class WattsUp(object):
       except:
         pass
       self.serialPort.close()
-    
+    except KeyboardInterrupt:
+      try:
+        logfile.close()
+      except:
+        pass
+      self.serialPort.close()
+      print '\nKeyboardInterrupt in logger, saving log file for: ', logfile.name
       # close file
+    
 
   def clear(self):
     """Clears the internal memory of meters and starts logging to the internal memory

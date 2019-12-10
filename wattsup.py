@@ -39,6 +39,8 @@ import sys
 import serial
 from platform import uname
 import multiprocessing
+import signal
+
 
 class WattsUp(object):
   """WattsUp meter class"""
@@ -113,6 +115,17 @@ class WattsUp(object):
       logfile.write('Time, W\n')
       # sys.stdout.write('Meter, Time, W\n')
       sys.stdout.write('Time, W\n')
+      
+      def signal_handler(signal, frame):
+        try:
+          logfile.close()
+        except:
+          pass
+        self.serialPort.close()
+        print '\nKeyboardInterrupt in logger, saving log file for: ', logfile.name
+
+      signal.signal(signal.SIGINT, signal_handler)
+
       while True:
         if elapsedTime > self.duration:
           break
@@ -135,13 +148,7 @@ class WattsUp(object):
       except:
         pass
       self.serialPort.close()
-    except KeyboardInterrupt:
-      try:
-        logfile.close()
-      except:
-        pass
-      self.serialPort.close()
-      print '\nKeyboardInterrupt in logger, saving log file for: ', logfile.name
+    
       # close file
 
   def clear(self):

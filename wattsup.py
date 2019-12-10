@@ -123,7 +123,9 @@ class WattsUp(object):
           pass
         self.serialPort.close()
         print '\nSIGINT in logger, saving log file for: ', logfile.name
+        sys.exit(0)
 
+      # Start monitoring for SIGINT
       signal.signal(signal.SIGINT, signal_handler)
 
       while True:

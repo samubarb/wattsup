@@ -139,8 +139,12 @@ class WattsUp(object):
 
         stringBuild = [str(x) for x in fields]
         print(stringBuild)
-        for field in fields:
-          logfile.write('%s, ' % field)
+        l = len(fields)
+        for i, field in enumerate(fields):
+          if i < l-1:
+            logfile.write('%s, ' % field)
+          else:
+            logfile.write('%s' % field)
         logfile.write('\n')
 
         elapsedTime += self.interval

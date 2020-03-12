@@ -40,6 +40,7 @@ import serial
 from platform import uname
 import multiprocessing
 import signal
+import csv
 
 
 class WattsUp(object):
@@ -137,15 +138,14 @@ class WattsUp(object):
         else:
           fields = self.getFormattedLine()
 
-        stringBuild = [str(x) for x in fields]
-        print(stringBuild)
-        l = len(fields)
-        for i, field in enumerate(fields):
-          if i < l-1:
-            logfile.write('%s, ' % field)
-          else:
-            logfile.write('%s' % field)
-        logfile.write('\n')
+        line = [str(x) for x in fields]
+        # Write csv file
+        wr = csv.writer(logfile)
+        wr.writerow(line)
+
+        # Write to stdout
+        so = csv.writer(sys.stdout)
+        so.writerow(line)
 
         elapsedTime += self.interval
 
